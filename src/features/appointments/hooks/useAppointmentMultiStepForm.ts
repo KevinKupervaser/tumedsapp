@@ -31,6 +31,8 @@ interface UseAppointmentMultiStepFormResult {
   onDateChange: (event: any, date?: Date) => void;
   onTimeChange: (event: any, time?: Date) => void;
   availableTimeSlots: string[];
+  selectedTimeSlotPeriod: TimeSlotPeriod;
+  setSelectedTimeSlotPeriod: (period: TimeSlotPeriod) => void;
 
   // Doctors
   availableDoctors: { id: string; name: string }[];
@@ -50,7 +52,19 @@ const AVAILABLE_DOCTORS = [
   { id: "2", name: "Dra. María Hookerman" },
 ];
 
-const TIME_SLOTS = [
+const MORNING_TIME_SLOTS = [
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+];
+
+const AFTERNOON_TIME_SLOTS = [
   "17:00",
   "17:30",
   "18:00",
@@ -61,6 +75,8 @@ const TIME_SLOTS = [
   "20:30",
   "21:00",
 ];
+
+type TimeSlotPeriod = "morning" | "afternoon" | null;
 
 export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult {
   const router = useRouter();
@@ -73,6 +89,7 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [selectedTimeSlotPeriod, setSelectedTimeSlotPeriod] = useState<TimeSlotPeriod>(null);
 
   const {
     control,
@@ -99,6 +116,11 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
       setValue("email", user.email);
     }
   }, [user?.email, setValue]);
+
+  // Clear time selection when period changes
+  useEffect(() => {
+    setValue("time", "");
+  }, [selectedTimeSlotPeriod, setValue]);
 
   const formatDate = (date: Date): string => {
     const day = String(date.getDate()).padStart(2, "0");
@@ -211,6 +233,13 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
     }
   };
 
+  // Get time slots based on selected period
+  const availableTimeSlots = selectedTimeSlotPeriod === "morning"
+    ? MORNING_TIME_SLOTS
+    : selectedTimeSlotPeriod === "afternoon"
+    ? AFTERNOON_TIME_SLOTS
+    : [];
+
   return {
     control,
     errors,
@@ -228,7 +257,9 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
     setShowTimePicker,
     onDateChange,
     onTimeChange,
-    availableTimeSlots: TIME_SLOTS,
+    availableTimeSlots,
+    selectedTimeSlotPeriod,
+    setSelectedTimeSlotPeriod,
     availableDoctors: AVAILABLE_DOCTORS,
     selectedDoctor,
     setSelectedDoctor,

@@ -1,9 +1,10 @@
-import { DatePickerField, DoctorSelector, TimePickerField, useAppointmentMultiStepForm } from "@/src/features/appointments";
+import { AppointmentSummaryCard, DatePickerField, DoctorSelector, TimePickerField, TimeSlotPeriodSelector, useAppointmentMultiStepForm } from "@/src/features/appointments";
 import { useTheme } from "@/src/features/settings";
 import { FormField, SlideUpScreen, ThemedText, ThemedView } from "@/src/shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useWatch } from "react-hook-form";
 
 export default function AppointmentFormScreen() {
   const { theme } = useTheme();
@@ -23,6 +24,8 @@ export default function AppointmentFormScreen() {
     setShowDatePicker,
     onDateChange,
     availableTimeSlots,
+    selectedTimeSlotPeriod,
+    setSelectedTimeSlotPeriod,
     availableDoctors,
     selectedDoctor,
     setSelectedDoctor,
@@ -30,6 +33,10 @@ export default function AppointmentFormScreen() {
     isLoading,
     goBack,
   } = useAppointmentMultiStepForm();
+
+  // Watch form values to show in summary - this will trigger re-render on changes
+  const selectedDateValue = useWatch({ control, name: "date" });
+  const selectedTimeValue = useWatch({ control, name: "time" });
 
   // Step progress indicator
   const stepTitles = {
@@ -98,13 +105,29 @@ export default function AppointmentFormScreen() {
                 }}
               />
 
-              <TimePickerField
-                name="time"
-                control={control}
-                label="Horario *"
-                timeSlots={availableTimeSlots}
-                error={errors.time}
+              <TimeSlotPeriodSelector
+                selectedPeriod={selectedTimeSlotPeriod}
+                onSelectPeriod={setSelectedTimeSlotPeriod}
               />
+
+              {selectedTimeSlotPeriod && (
+                <TimePickerField
+                  name="time"
+                  control={control}
+                  label={selectedTimeSlotPeriod === "morning" ? "Horarios Disponibles (Mañana)" : "Horarios Disponibles (Tarde)"}
+                  timeSlots={availableTimeSlots}
+                  error={errors.time}
+                />
+              )}
+
+              {/* Show Summary Card when both date and time are selected */}
+              {selectedDateValue && selectedTimeValue && selectedTimeSlotPeriod && (
+                <AppointmentSummaryCard
+                  date={selectedDateValue}
+                  time={selectedTimeValue}
+                  period={selectedTimeSlotPeriod}
+                />
+              )}
             </>
           )}
 
