@@ -1,20 +1,9 @@
 import { useAppSelector } from "@/src/core";
-import { AppointmentCard } from "@/src/features/appointments/components/AppointmentCard";
-import { FilterChips } from "@/src/features/appointments/components/FilterChips";
-import { useAppointmentActions } from "@/src/features/appointments/hooks/useAppointmentActions";
-import { useAppointments } from "@/src/features/appointments/hooks/useAppointments";
-import { useAppointmentsFilter } from "@/src/features/appointments/hooks/useAppointmentsFilter";
-import { useTheme } from "@/src/features/settings/hooks/useTheme";
-import { LogoutButton } from "@/src/shared/components/layout/LogoutButton";
-import { ThemedText } from "@/src/shared/components/themed/ThemedText";
-import { ThemedView } from "@/src/shared/components/themed/ThemedView";
+import { AppointmentCard, FilterChips, useAppointmentActions, useAppointments, useAppointmentsFilter } from "@/src/features/appointments";
+import { useTheme } from "@/src/features/settings";
+import { LogoutButton, ThemedText, ThemedView } from "@/src/shared";
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function HomeScreen() {
   const user = useAppSelector((state) => state.auth.user);

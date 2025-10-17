@@ -1,7 +1,6 @@
 import { useAppDispatch } from "@/src/core/store/hooks";
-import { login, loginAsGuest } from "@/src/features/auth/store";
+import { login, loginAsGuest } from "@/src/features/auth/store/authSlice";
 import { LoginFormData } from "@/src/shared/types/common.types";
-
 import { useState } from "react";
 import { Alert } from "react-native";
 

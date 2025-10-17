@@ -1,20 +1,8 @@
-import { DatePickerField } from "@/src/features/appointments/components/DatePickerField";
-import { DoctorSelector } from "@/src/features/appointments/components/DoctorSelector";
-import { TimePickerField } from "@/src/features/appointments/components/TimePickerField";
-import { useAppointmentMultiStepForm } from "@/src/features/appointments/hooks";
-import { useTheme } from "@/src/features/settings/hooks/useTheme";
-import { SlideUpScreen } from "@/src/shared";
-import { FormField } from "@/src/shared/components/form";
-import { ThemedText } from "@/src/shared/components/themed/ThemedText";
-import { ThemedView } from "@/src/shared/components/themed/ThemedView";
+import { DatePickerField, DoctorSelector, TimePickerField, useAppointmentMultiStepForm } from "@/src/features/appointments";
+import { useTheme } from "@/src/features/settings";
+import { FormField, SlideUpScreen, ThemedText, ThemedView } from "@/src/shared";
 import { MaterialIcons } from "@expo/vector-icons";
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AppointmentFormScreen() {

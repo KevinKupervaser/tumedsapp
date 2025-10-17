@@ -1,11 +1,7 @@
-import { useAppSelector } from "@/src/core/store/hooks";
-import { useImageOptions } from "@/src/features/profile/hooks/useImageOptions";
-import { useImagePicker } from "@/src/features/profile/hooks/useImagePicker";
-import { useProfilePicture } from "@/src/features/profile/hooks/useProfilePicture";
-import { useTheme } from "@/src/features/settings/hooks/useTheme";
-import { LogoutButton } from "@/src/shared/components/layout/LogoutButton";
-import { ThemedText } from "@/src/shared/components/themed/ThemedText";
-import { ThemedView } from "@/src/shared/components/themed/ThemedView";
+import { useAppSelector } from "@/src/core";
+import { useImageOptions, useImagePicker, useProfilePicture } from "@/src/features/profile";
+import { useTheme } from "@/src/features/settings";
+import { LogoutButton, ThemedText, ThemedView } from "@/src/shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 

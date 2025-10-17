@@ -1,8 +1,7 @@
-import { ThemedText } from "@/src/shared/components/themed/ThemedText";
-import { AppointmentStatus } from "@/src/shared/types/common.types";
+import { ThemedText, AppointmentStatus } from "@/src/shared";
+import { useTheme } from "@/src/features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "../../settings/hooks/useTheme";
 
 type FilterType = AppointmentStatus | "all";
 

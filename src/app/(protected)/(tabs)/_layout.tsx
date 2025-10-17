@@ -1,7 +1,5 @@
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { HapticTab } from "@/src/shared/components/ui/HapticTab";
-import { IconSymbol } from "@/src/shared/components/ui/IconSymbol";
-import { Colors } from "@/src/shared/constants/theme";
+import { HapticTab, IconSymbol, Colors } from "@/src/shared";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {

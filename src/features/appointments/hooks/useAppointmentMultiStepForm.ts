@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/src/core/";
+import { useAppSelector } from "@/src/core/store/hooks";
 import { AppointmentFormData } from "@/src/shared/types/common.types";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";

@@ -1,19 +1,9 @@
-
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { useLogin } from "../features/auth/hooks/useLogin";
-import { LoginFormData } from "../shared/types/common.types";
-import { FormInput } from "../features/auth/components/FormInput";
+import { ActivityIndicator, KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FormInput, useLogin } from "@/src/features/auth";
+import { LoginFormData } from "@/src/shared";
 
 
 export default function LoginScreen() {

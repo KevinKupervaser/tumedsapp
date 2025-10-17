@@ -1,4 +1,4 @@
-import { useTheme } from "@/src/features/settings/hooks/useTheme";
+import { useTheme } from "@/src/features/settings";
 import { View, type ViewProps } from "react-native";
 
 export type ThemedViewProps = ViewProps & {

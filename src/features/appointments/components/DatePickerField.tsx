@@ -1,10 +1,9 @@
-import { ThemedText } from "@/src/shared/components/themed/ThemedText";
-import { ThemedView } from "@/src/shared/components/themed/ThemedView";
+import { ThemedText, ThemedView } from "@/src/shared";
+import { useTheme } from "@/src/features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Control, Controller, FieldError } from "react-hook-form";
 import { Platform, StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "../../settings/hooks/useTheme";
 
 interface DatePickerFieldProps {
   name: string;

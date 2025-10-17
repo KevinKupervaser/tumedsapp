@@ -1,5 +1,6 @@
-import { useTheme } from "@/src/features/settings/hooks/useTheme";
-import { ThemedText, ThemedView } from "@/src/shared/components/themed";
+import { useTheme } from "@/src/features/settings";
+import { ThemedText } from "@/src/shared/components/themed/ThemedText";
+import { ThemedView } from "@/src/shared/components/themed/ThemedView";
 import { Control, Controller, FieldError } from "react-hook-form";
 import { StyleSheet, TextInput, TextInputProps } from "react-native";
 

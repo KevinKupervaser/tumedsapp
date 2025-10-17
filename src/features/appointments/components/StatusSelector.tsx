@@ -1,10 +1,7 @@
-import { ThemedText } from "@/src/shared/components/themed/ThemedText";
-import { ThemedView } from "@/src/shared/components/themed/ThemedView";
-import { AppointmentStatus } from "@/src/shared/types/common.types";
-
+import { ThemedText, ThemedView, AppointmentStatus } from "@/src/shared";
+import { useTheme } from "@/src/features/settings";
 import { Control, Controller } from "react-hook-form";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "../../settings/hooks/useTheme";
 
 interface StatusSelectorProps {
   name: string;
