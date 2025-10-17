@@ -48,3 +48,227 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+```
+turnosmedicos
+├─ app
+│  ├─ (protected)
+│  │  ├─ (tabs)
+│  │  │  ├─ index.tsx
+│  │  │  ├─ profile.tsx
+│  │  │  ├─ settings.tsx
+│  │  │  └─ _layout.tsx
+│  │  ├─ appointment-form.tsx
+│  │  └─ _layout.tsx
+│  ├─ login.tsx
+│  ├─ modal.tsx
+│  └─ _layout.tsx
+├─ app.json
+├─ assets
+│  └─ images
+│     ├─ favicon.png
+│     ├─ icon.png
+│     ├─ partial-react-logo.png
+│     ├─ react-logo.png
+│     ├─ react-logo@2x.png
+│     ├─ react-logo@3x.png
+│     └─ splash-icon.png
+├─ components
+│  ├─ AppointmentCard.tsx
+│  ├─ auth
+│  │  ├─ FormInput.tsx
+│  │  └─ index.ts
+│  ├─ DatePickerField.tsx
+│  ├─ DoctorSelector.tsx
+│  ├─ external-link.tsx
+│  ├─ FilterChips.tsx
+│  ├─ FormField.tsx
+│  ├─ haptic-tab.tsx
+│  ├─ hello-wave.tsx
+│  ├─ LogoutButton.tsx
+│  ├─ parallax-scroll-view.tsx
+│  ├─ StatusSelector.tsx
+│  ├─ themed-text.tsx
+│  ├─ themed-view.tsx
+│  ├─ TimePickerField.tsx
+│  └─ ui
+│     ├─ collapsible.tsx
+│     ├─ icon-symbol.ios.tsx
+│     └─ icon-symbol.tsx
+├─ constants
+│  └─ theme.ts
+├─ eslint.config.js
+├─ hooks
+│  ├─ appointments
+│  │  ├─ index.ts
+│  │  ├─ useAppointmentActions.ts
+│  │  ├─ useAppointmentMultiStepForm.ts
+│  │  ├─ useAppointments.ts
+│  │  └─ useAppointmentsFilter.ts
+│  ├─ auth
+│  │  ├─ index.ts
+│  │  └─ useLogin.ts
+│  ├─ profile
+│  │  ├─ index.ts
+│  │  ├─ useImageOptions.ts
+│  │  ├─ useImagePicker.ts
+│  │  └─ useProfilePicture.ts
+│  ├─ reduxHooks.ts
+│  ├─ theme
+│  │  ├─ index.ts
+│  │  └─ useTheme.ts
+│  ├─ use-color-scheme.ts
+│  ├─ use-color-scheme.web.ts
+│  └─ use-theme-color.ts
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ scripts
+│  └─ reset-project.js
+├─ services
+│  ├─ api.ts
+│  └─ appointments.ts
+├─ store
+│  ├─ index.ts
+│  └─ slices
+│     ├─ authSlice.ts
+│     └─ themeSlice.ts
+├─ tsconfig.json
+└─ types
+   └─ index.ts
+
+```
+```
+turnosapp
+├─ app.json
+├─ assets
+│  └─ images
+│     ├─ favicon.png
+│     ├─ icon.png
+│     ├─ partial-react-logo.png
+│     ├─ react-logo.png
+│     ├─ react-logo@2x.png
+│     ├─ react-logo@3x.png
+│     └─ splash-icon.png
+├─ components
+│  ├─ external-link.tsx
+│  ├─ hello-wave.tsx
+│  ├─ parallax-scroll-view.tsx
+│  └─ ui
+│     ├─ collapsible.tsx
+│     └─ icon-symbol.ios.tsx
+├─ eslint.config.js
+├─ hooks
+│  ├─ use-color-scheme.ts
+│  ├─ use-color-scheme.web.ts
+│  └─ use-theme-color.ts
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ scripts
+│  └─ reset-project.js
+├─ services
+├─ src
+│  ├─ app
+│  │  ├─ (protected)
+│  │  │  ├─ (tabs)
+│  │  │  │  ├─ index.tsx
+│  │  │  │  ├─ profile.tsx
+│  │  │  │  ├─ settings.tsx
+│  │  │  │  └─ _layout.tsx
+│  │  │  ├─ appointment-form.tsx
+│  │  │  └─ _layout.tsx
+│  │  ├─ login.tsx
+│  │  ├─ modal.tsx
+│  │  └─ _layout.tsx
+│  ├─ core
+│  │  ├─ api
+│  │  │  ├─ client.ts
+│  │  │  └─ index.ts
+│  │  ├─ config
+│  │  │  ├─ index.ts
+│  │  │  └─ queryClient.ts
+│  │  ├─ index.ts
+│  │  └─ store
+│  │     ├─ hooks.ts
+│  │     └─ index.ts
+│  ├─ features
+│  │  ├─ appointments
+│  │  │  ├─ components
+│  │  │  │  ├─ AppointmentCard.tsx
+│  │  │  │  ├─ DatePickerField.tsx
+│  │  │  │  ├─ DoctorSelector.tsx
+│  │  │  │  ├─ FilterChips.tsx
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ StatusSelector.tsx
+│  │  │  │  └─ TimePickerField.tsx
+│  │  │  ├─ hooks
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ useAppointmentActions.ts
+│  │  │  │  ├─ useAppointmentMultiStepForm.ts
+│  │  │  │  ├─ useAppointments.ts
+│  │  │  │  └─ useAppointmentsFilter.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ services
+│  │  │  │  ├─ appointmentsService.ts
+│  │  │  │  └─ index.ts
+│  │  │  └─ types
+│  │  │     ├─ appointment.types.ts
+│  │  │     └─ index.ts
+│  │  ├─ auth
+│  │  │  ├─ components
+│  │  │  │  ├─ FormInput.tsx
+│  │  │  │  └─ index.ts
+│  │  │  ├─ hooks
+│  │  │  │  ├─ index.ts
+│  │  │  │  └─ useLogin.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ services
+│  │  │  ├─ store
+│  │  │  │  ├─ authSlice.ts
+│  │  │  │  └─ index.ts
+│  │  │  └─ types
+│  │  ├─ profile
+│  │  │  ├─ hooks
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ useImageOptions.ts
+│  │  │  │  ├─ useImagePicker.ts
+│  │  │  │  └─ useProfilePicture.ts
+│  │  │  └─ index.ts
+│  │  └─ settings
+│  │     ├─ hooks
+│  │     │  ├─ index.ts
+│  │     │  └─ useTheme.ts
+│  │     ├─ index.ts
+│  │     └─ store
+│  │        ├─ index.ts
+│  │        └─ themeSlice.ts
+│  └─ shared
+│     ├─ components
+│     │  ├─ form
+│     │  │  ├─ FormField.tsx
+│     │  │  └─ index.ts
+│     │  ├─ index.ts
+│     │  ├─ layout
+│     │  │  ├─ index.ts
+│     │  │  └─ LogoutButton.tsx
+│     │  ├─ themed
+│     │  │  ├─ index.ts
+│     │  │  ├─ ThemedText.tsx
+│     │  │  └─ ThemedView.tsx
+│     │  └─ ui
+│     │     ├─ HapticTab.tsx
+│     │     ├─ IconSymbol.tsx
+│     │     ├─ index.ts
+│     │     └─ SlideUpScreen.tsx
+│     ├─ constants
+│     │  ├─ index.ts
+│     │  └─ theme.ts
+│     ├─ index.ts
+│     └─ types
+│        ├─ common.types.ts
+│        └─ index.ts
+├─ tsconfig.json
+└─ types
+
+```
