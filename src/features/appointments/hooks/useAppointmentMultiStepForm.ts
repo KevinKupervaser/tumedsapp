@@ -1,5 +1,5 @@
-import { useAppSelector } from "@/src/core/store/hooks";
-import { AppointmentFormData } from "@/src/shared/types/common.types";
+import { useAppSelector } from "@core/store/hooks";
+import { AppointmentFormData } from "@shared/types/common.types";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

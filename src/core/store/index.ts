@@ -1,5 +1,5 @@
-import { authReducer } from "@/src/features/auth";
-import { themeReducer } from "@/src/features/settings";
+import { authReducer } from "@features/auth";
+import { themeReducer } from "@features/settings";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";

@@ -1,5 +1,5 @@
-import { ThemedText, AppointmentStatus } from "@/src/shared";
-import { useTheme } from "@/src/features/settings";
+import { ThemedText, AppointmentStatus } from "@shared";
+import { useTheme } from "@features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 

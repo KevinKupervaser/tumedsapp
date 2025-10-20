@@ -1,5 +1,5 @@
-import { appointmentsAPI } from "@/src/features/appointments/services/appointmentsService";
-import { AppointmentFormData } from "@/src/shared/types/common.types";
+import { appointmentsAPI } from "@features/appointments/services/appointmentsService";
+import { AppointmentFormData } from "@shared/types/common.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Alert } from "react-native";
 

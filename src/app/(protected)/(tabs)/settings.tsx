@@ -1,5 +1,5 @@
-import { useTheme } from "@/src/features/settings";
-import { LogoutButton, ThemedText, ThemedView } from "@/src/shared";
+import { useTheme } from "@features/settings";
+import { LogoutButton, ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 

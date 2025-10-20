@@ -1,4 +1,4 @@
-import { useTheme } from "@/src/features/settings";
+import { useTheme } from "@features/settings";
 import { StyleSheet, Text, type TextProps } from "react-native";
 
 export type ThemedTextProps = TextProps & {

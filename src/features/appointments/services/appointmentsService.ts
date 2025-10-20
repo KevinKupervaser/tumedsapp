@@ -1,9 +1,9 @@
-import api from "@/src/core/api/client";
+import api from "@core/api/client";
 import {
   Appointment,
   AppointmentFormData,
   sanitizeAppointment,
-} from "@/src/features/appointments/types";
+} from "@features/appointments/types";
 
 export const appointmentsAPI = {
   getAll: async (): Promise<Appointment[]> => {

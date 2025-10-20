@@ -1,5 +1,5 @@
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { persistor, store, useAppSelector } from "@/src/core";
+import { persistor, store, useAppSelector } from "@core";
 import {
   DarkTheme,
   DefaultTheme,

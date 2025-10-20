@@ -1,5 +1,5 @@
 
-import { Appointment } from "@/src/shared/types/common.types";
+import { Appointment } from "@shared/types/common.types";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
 import { Alert } from "react-native";

@@ -1,6 +1,6 @@
-import { AppointmentSummaryCard, DatePickerField, DoctorSelector, TimePickerField, TimeSlotPeriodSelector, useAppointmentMultiStepForm } from "@/src/features/appointments";
-import { useTheme } from "@/src/features/settings";
-import { FormField, SlideUpScreen, ThemedText, ThemedView } from "@/src/shared";
+import { AppointmentSummaryCard, DatePickerField, DoctorSelector, TimePickerField, TimeSlotPeriodSelector, useAppointmentMultiStepForm } from "@features/appointments";
+import { useTheme } from "@features/settings";
+import { FormField, SlideUpScreen, ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

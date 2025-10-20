@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "@/src/core/store/hooks";
-import { setProfilePicture as setProfilePictureAction } from "@/src/features/auth/store";
+import { useAppDispatch, useAppSelector } from "@core/store/hooks";
+import { setProfilePicture as setProfilePictureAction } from "@features/auth/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Alert } from "react-native";
 

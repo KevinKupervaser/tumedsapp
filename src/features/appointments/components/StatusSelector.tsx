@@ -1,5 +1,5 @@
-import { ThemedText, ThemedView, AppointmentStatus } from "@/src/shared";
-import { useTheme } from "@/src/features/settings";
+import { ThemedText, ThemedView, AppointmentStatus } from "@shared";
+import { useTheme } from "@features/settings";
 import { Control, Controller } from "react-hook-form";
 import { StyleSheet, TouchableOpacity } from "react-native";
 

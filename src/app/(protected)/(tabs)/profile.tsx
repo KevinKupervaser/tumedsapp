@@ -1,7 +1,7 @@
-import { useAppSelector } from "@/src/core";
-import { useImageOptions, useImagePicker, useProfilePicture } from "@/src/features/profile";
-import { useTheme } from "@/src/features/settings";
-import { LogoutButton, ThemedText, ThemedView } from "@/src/shared";
+import { useAppSelector } from "@core";
+import { useImageOptions, useImagePicker, useProfilePicture } from "@features/profile";
+import { useTheme } from "@features/settings";
+import { LogoutButton, ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 

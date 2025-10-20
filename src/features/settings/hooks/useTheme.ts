@@ -1,6 +1,6 @@
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { useAppDispatch, useAppSelector } from "@/src/core/store/hooks";
-import { Colors } from "@/src/shared/constants/theme";
+import { useAppDispatch, useAppSelector } from "@core/store/hooks";
+import { Colors } from "@shared/constants/theme";
 import { setThemeMode } from "../store/themeSlice";
 
 export const useTheme = () => {

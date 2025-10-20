@@ -1,7 +1,7 @@
-import { useAppSelector } from "@/src/core";
-import { AppointmentCard, FilterChips, useAppointmentActions, useAppointments, useAppointmentsFilter } from "@/src/features/appointments";
-import { useTheme } from "@/src/features/settings";
-import { LogoutButton, ThemedText, ThemedView } from "@/src/shared";
+import { useAppSelector } from "@core";
+import { AppointmentCard, FilterChips, useAppointmentActions, useAppointments, useAppointmentsFilter } from "@features/appointments";
+import { useTheme } from "@features/settings";
+import { LogoutButton, ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 

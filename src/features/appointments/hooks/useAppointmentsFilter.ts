@@ -1,7 +1,7 @@
 import {
   Appointment,
   AppointmentStatus,
-} from "@/src/shared/types/common.types";
+} from "@shared/types/common.types";
 import { useMemo, useState } from "react";
 
 type FilterType = AppointmentStatus | "all";

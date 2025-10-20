@@ -1,6 +1,6 @@
-import { useAppDispatch } from "@/src/core";
-import { logout } from "@/src/features/auth";
-import { useTheme } from "@/src/features/settings";
+import { useAppDispatch } from "@core";
+import { logout } from "@features/auth";
+import { useTheme } from "@features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 

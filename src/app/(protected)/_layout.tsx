@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/src/core";
+import { useAppSelector } from "@core";
 import { Stack } from "expo-router";
 
 export default function ProtectedLayout() {
