@@ -20,10 +20,8 @@ export function AppointmentSummaryCard({
   const periodText = period === "morning" ? "mañana" : "tarde";
   const periodIcon = period === "morning" ? "wb-sunny" : "nights-stay";
 
-  // Create gradient colors based on theme
-  const gradientColors: [string, string] = period === "morning"
-    ? ["#FFA726", "#FF6F00"] // Orange gradient for morning
-    : ["#5C6BC0", "#3949AB"]; // Blue/Purple gradient for afternoon
+  const gradientColors: [string, string] =
+    period === "morning" ? ["#FFA726", "#FF6F00"] : ["#5C6BC0", "#3949AB"];
 
   return (
     <ThemedView style={styles.container}>
@@ -39,12 +37,12 @@ export function AppointmentSummaryCard({
         </LinearGradient>
 
         {/* Title */}
-        <ThemedText style={styles.title}>
-          ¡Turno Seleccionado!
-        </ThemedText>
+        <ThemedText style={styles.title}>¡Turno Seleccionado!</ThemedText>
 
         {/* Summary Text */}
-        <ThemedText style={[styles.summaryText, { color: theme.textSecondary }]}>
+        <ThemedText
+          style={[styles.summaryText, { color: theme.textSecondary }]}
+        >
           Usted ha seleccionado el turno para:
         </ThemedText>
 
@@ -52,7 +50,12 @@ export function AppointmentSummaryCard({
         <ThemedView style={styles.detailsContainer}>
           {/* Date Detail */}
           <View style={[styles.detailRow, { borderColor: theme.border }]}>
-            <View style={[styles.iconCircle, { backgroundColor: `${theme.primary}15` }]}>
+            <View
+              style={[
+                styles.iconCircle,
+                { backgroundColor: `${theme.primary}15` },
+              ]}
+            >
               <MaterialIcons
                 name="calendar-today"
                 size={20}
@@ -60,18 +63,23 @@ export function AppointmentSummaryCard({
               />
             </View>
             <View style={styles.detailContent}>
-              <ThemedText style={[styles.detailLabel, { color: theme.textSecondary }]}>
+              <ThemedText
+                style={[styles.detailLabel, { color: theme.textSecondary }]}
+              >
                 Fecha
               </ThemedText>
-              <ThemedText style={styles.detailValue}>
-                {date}
-              </ThemedText>
+              <ThemedText style={styles.detailValue}>{date}</ThemedText>
             </View>
           </View>
 
           {/* Time Period Detail */}
           <View style={[styles.detailRow, { borderColor: theme.border }]}>
-            <View style={[styles.iconCircle, { backgroundColor: `${theme.primary}15` }]}>
+            <View
+              style={[
+                styles.iconCircle,
+                { backgroundColor: `${theme.primary}15` },
+              ]}
+            >
               <MaterialIcons
                 name={periodIcon}
                 size={20}
@@ -79,7 +87,9 @@ export function AppointmentSummaryCard({
               />
             </View>
             <View style={styles.detailContent}>
-              <ThemedText style={[styles.detailLabel, { color: theme.textSecondary }]}>
+              <ThemedText
+                style={[styles.detailLabel, { color: theme.textSecondary }]}
+              >
                 Turno
               </ThemedText>
               <ThemedText style={styles.detailValue}>
@@ -90,7 +100,12 @@ export function AppointmentSummaryCard({
 
           {/* Time Detail */}
           <View style={styles.detailRow}>
-            <View style={[styles.iconCircle, { backgroundColor: `${theme.primary}15` }]}>
+            <View
+              style={[
+                styles.iconCircle,
+                { backgroundColor: `${theme.primary}15` },
+              ]}
+            >
               <MaterialIcons
                 name="access-time"
                 size={20}
@@ -98,23 +113,21 @@ export function AppointmentSummaryCard({
               />
             </View>
             <View style={styles.detailContent}>
-              <ThemedText style={[styles.detailLabel, { color: theme.textSecondary }]}>
+              <ThemedText
+                style={[styles.detailLabel, { color: theme.textSecondary }]}
+              >
                 Horario
               </ThemedText>
-              <ThemedText style={styles.detailValue}>
-                {time}
-              </ThemedText>
+              <ThemedText style={styles.detailValue}>{time}</ThemedText>
             </View>
           </View>
         </ThemedView>
 
         {/* Bottom Info Banner */}
-        <View style={[styles.infoBanner, { backgroundColor: `${theme.primary}10` }]}>
-          <MaterialIcons
-            name="info-outline"
-            size={16}
-            color={theme.primary}
-          />
+        <View
+          style={[styles.infoBanner, { backgroundColor: `${theme.primary}10` }]}
+        >
+          <MaterialIcons name="info-outline" size={16} color={theme.primary} />
           <ThemedText style={[styles.infoText, { color: theme.primary }]}>
             Continúe con los siguientes pasos
           </ThemedText>

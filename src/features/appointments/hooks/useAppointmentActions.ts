@@ -25,6 +25,10 @@ export function useAppointmentActions(): UseAppointmentActionsResult {
           patient: appointment.patient,
           doctor: appointment.doctor,
           date: appointment.date,
+          time: appointment.time,
+          phone: appointment.phone,
+          email: appointment.email,
+          observations: appointment.observations || "",
           status: appointment.status,
         },
       });

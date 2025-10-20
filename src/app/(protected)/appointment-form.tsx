@@ -5,10 +5,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useWatch } from "react-hook-form";
+import { useState, useEffect } from "react";
 
 export default function AppointmentFormScreen() {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
+  const [hasScrolledToSummary, setHasScrolledToSummary] = useState(false);
 
   const {
     control,
@@ -34,11 +36,36 @@ export default function AppointmentFormScreen() {
     goBack,
   } = useAppointmentMultiStepForm();
 
-  // Watch form values to show in summary - this will trigger re-render on changes
   const selectedDateValue = useWatch({ control, name: "date" });
   const selectedTimeValue = useWatch({ control, name: "time" });
 
-  // Step progress indicator
+  const showSummaryCard = selectedDateValue && selectedTimeValue && selectedTimeSlotPeriod;
+
+  useEffect(() => {
+    if (!showSummaryCard || currentStep !== "datetime") {
+      setHasScrolledToSummary(false);
+    }
+  }, [showSummaryCard, currentStep]);
+
+  const handleScroll = (event: any) => {
+    if (!showSummaryCard) return;
+
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const scrollPosition = contentOffset.y;
+    const scrollViewHeight = layoutMeasurement.height;
+    const contentHeight = contentSize.height;
+
+    const scrollPercentage = (scrollPosition + scrollViewHeight) / contentHeight;
+
+    if (scrollPercentage > 0.6) {
+      setHasScrolledToSummary(true);
+    }
+  };
+
+  const showNextButton = currentStep === "datetime"
+    ? showSummaryCard && hasScrolledToSummary
+    : true; 
+
   const stepTitles = {
     datetime: "Fecha y Horario",
     doctor: "Seleccionar Profesional",
@@ -82,6 +109,8 @@ export default function AppointmentFormScreen() {
         <ScrollView
           style={styles.form}
           showsVerticalScrollIndicator={false}
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
           contentContainerStyle={[
             styles.formContent,
             { paddingBottom: insets.bottom + 100 }, // Extra space for buttons
@@ -197,14 +226,15 @@ export default function AppointmentFormScreen() {
         </ScrollView>
 
         {/* Navigation Buttons */}
-        <ThemedView
-          style={[
-            styles.buttonContainer,
-            {
-              paddingBottom: Math.max(insets.bottom, 16) + 16,
-              backgroundColor: theme.background,
-            },
-          ]}
+        {showNextButton && (
+          <ThemedView
+            style={[
+              styles.buttonContainer,
+              {
+                paddingBottom: Math.max(insets.bottom, 16) + 16,
+                backgroundColor: theme.background,
+              },
+            ]}
         >
           <View style={styles.buttonRow}>
             {!isFirstStep && (
@@ -253,6 +283,7 @@ export default function AppointmentFormScreen() {
             </TouchableOpacity>
           </View>
         </ThemedView>
+        )}
       </ThemedView>
     </SlideUpScreen>
   );

@@ -7,10 +7,7 @@ import { LoginFormData } from "@shared";
 
 
 export default function LoginScreen() {
-  // Define the success callback - navigates to protected routes
   const handleLoginSuccess = () => {
-    // The Stack.Protected will automatically handle the navigation
-    // because isAuthenticated becomes true in Redux
   };
 
   const { isLoading, loginWithCredentials, loginAsGuestUser } =
