@@ -1,6 +1,6 @@
 import { AppointmentSummaryCard, DatePickerField, DoctorSelector, TimePickerField, TimeSlotPeriodSelector, useAppointmentMultiStepForm } from "@features/appointments";
 import { useTheme } from "@features/settings";
-import { FormField, SlideUpScreen, ThemedText, ThemedView } from "@shared";
+import { FormField, SlideUpScreen, ThemedText, ThemedView, FORM_VALIDATION_RULES } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -178,7 +178,8 @@ export default function AppointmentFormScreen() {
                 label="Nombre y Apellido *"
                 placeholder="Ej: Juan Pérez"
                 error={errors.patient}
-                rules={{ required: "El nombre es requerido" }}
+                rules={FORM_VALIDATION_RULES.fullName}
+                autoCapitalize="words"
               />
 
               <FormField
@@ -202,10 +203,10 @@ export default function AppointmentFormScreen() {
                 name="phone"
                 control={control}
                 label="Teléfono *"
-                placeholder="Ej: +54 341 123 4567"
+                placeholder="Ej: +54 341 123 4567 o 341 123 4567"
                 keyboardType="phone-pad"
                 error={errors.phone}
-                rules={{ required: "El teléfono es requerido" }}
+                rules={FORM_VALIDATION_RULES.argentinianPhone}
               />
 
               <ThemedView style={styles.field}>

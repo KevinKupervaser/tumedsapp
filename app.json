@@ -14,7 +14,11 @@
       "infoPlist": {
         "NSCameraUsageDescription": "Esta app necesita acceso a la cámara para tomar fotos de perfil",
         "NSPhotoLibraryUsageDescription": "Esta app necesita acceso a tu galería para seleccionar fotos de perfil",
-        "NSPhotoLibraryAddUsageDescription": "Esta app necesita acceso para guardar fotos en tu galería"
+        "NSPhotoLibraryAddUsageDescription": "Esta app necesita acceso para guardar fotos en tu galería",
+        "NSLocationWhenInUseUsageDescription": "Esta app necesita tu ubicación para mostrarte cómo llegar al consultorio"
+      },
+      "config": {
+        "googleMapsApiKey": "YOUR_GOOGLE_MAPS_API_KEY_HERE"
       }
     },
     "android": {
@@ -29,8 +33,15 @@
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.READ_MEDIA_IMAGES"
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
       ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY_HERE"
+        }
+      },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },

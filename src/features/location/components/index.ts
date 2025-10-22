@@ -1,0 +1,1 @@
+export { ClinicLocationMap } from "./ClinicLocationMap";

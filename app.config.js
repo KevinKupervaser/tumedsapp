@@ -1,0 +1,82 @@
+import 'dotenv/config';
+
+export default {
+  expo: {
+    name: 'vortex-it',
+    slug: 'vortex-it',
+    version: '1.0.0',
+    orientation: 'portrait',
+    icon: './assets/images/icon.png',
+    scheme: 'vortexit',
+    userInterfaceStyle: 'automatic',
+    newArchEnabled: true,
+    ios: {
+      supportsTablet: true,
+      bundleIdentifier: 'com.yourcompany.vortexit',
+      infoPlist: {
+        NSCameraUsageDescription: 'Esta app necesita acceso a la cámara para tomar fotos de perfil',
+        NSPhotoLibraryUsageDescription: 'Esta app necesita acceso a tu galería para seleccionar fotos de perfil',
+        NSPhotoLibraryAddUsageDescription: 'Esta app necesita acceso para guardar fotos en tu galería',
+        NSLocationWhenInUseUsageDescription: 'Esta app necesita tu ubicación para mostrarte cómo llegar al consultorio',
+      },
+      config: {
+        googleMapsApiKey: '',
+      },
+    },
+    android: {
+      adaptiveIcon: {
+        backgroundColor: '#E6F4FE',
+        foregroundImage: './assets/images/android-icon-foreground.png',
+        backgroundImage: './assets/images/android-icon-background.png',
+        monochromeImage: './assets/images/android-icon-monochrome.png',
+      },
+      package: 'com.yourcompany.vortexit',
+      permissions: [
+        'android.permission.CAMERA',
+        'android.permission.READ_EXTERNAL_STORAGE',
+        'android.permission.WRITE_EXTERNAL_STORAGE',
+        'android.permission.READ_MEDIA_IMAGES',
+        'android.permission.ACCESS_FINE_LOCATION',
+        'android.permission.ACCESS_COARSE_LOCATION',
+      ],
+      config: {
+        googleMaps: {
+          apiKey: '',
+        },
+      },
+      edgeToEdgeEnabled: true,
+      predictiveBackGestureEnabled: false,
+    },
+    web: {
+      output: 'static',
+      favicon: './assets/images/favicon.png',
+    },
+    plugins: [
+      'expo-router',
+      [
+        'expo-splash-screen',
+        {
+          image: './assets/images/splash-icon.png',
+          imageWidth: 200,
+          resizeMode: 'contain',
+          backgroundColor: '#ffffff',
+          dark: {
+            backgroundColor: '#000000',
+          },
+        },
+      ],
+      [
+        'expo-image-picker',
+        {
+          photosPermission: 'Esta app necesita acceso a tu galería para seleccionar fotos de perfil',
+          cameraPermission: 'Esta app necesita acceso a la cámara para tomar fotos de perfil',
+        },
+      ],
+      'expo-font',
+    ],
+    experiments: {
+      typedRoutes: true,
+      reactCompiler: true,
+    },
+  },
+};
