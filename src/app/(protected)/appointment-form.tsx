@@ -1,16 +1,22 @@
-import { AppointmentSummaryCard, DatePickerField, DoctorSelector, TimePickerField, TimeSlotPeriodSelector, useAppointmentMultiStepForm } from "@features/appointments";
+import {
+  AppointmentSummaryCard,
+  DatePickerField,
+  DoctorSelector,
+  TimePickerField,
+  TimeSlotPeriodSelector,
+  useAppointmentMultiStepForm,
+  useAppointmentFormFlow
+} from "@features/appointments";
 import { useTheme } from "@features/settings";
 import { FormField, SlideUpScreen, ThemedText, ThemedView, FORM_VALIDATION_RULES } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ActivityIndicator, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useWatch } from "react-hook-form";
-import { useState, useEffect } from "react";
 
 export default function AppointmentFormScreen() {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const [hasScrolledToSummary, setHasScrolledToSummary] = useState(false);
 
   const {
     control,
@@ -38,43 +44,19 @@ export default function AppointmentFormScreen() {
 
   const selectedDateValue = useWatch({ control, name: "date" });
   const selectedTimeValue = useWatch({ control, name: "time" });
-
   const showSummaryCard = selectedDateValue && selectedTimeValue && selectedTimeSlotPeriod;
 
-  useEffect(() => {
-    if (!showSummaryCard || currentStep !== "datetime") {
-      setHasScrolledToSummary(false);
-    }
-  }, [showSummaryCard, currentStep]);
-
-  const handleScroll = (event: any) => {
-    if (!showSummaryCard) return;
-
-    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-    const scrollPosition = contentOffset.y;
-    const scrollViewHeight = layoutMeasurement.height;
-    const contentHeight = contentSize.height;
-
-    const scrollPercentage = (scrollPosition + scrollViewHeight) / contentHeight;
-
-    if (scrollPercentage > 0.6) {
-      setHasScrolledToSummary(true);
-    }
-  };
-
-  const showNextButton = currentStep === "datetime"
-    ? showSummaryCard && hasScrolledToSummary
-    : true; 
-
-  const stepTitles = {
-    datetime: "Fecha y Horario",
-    doctor: "Seleccionar Profesional",
-    patient: "Datos del Paciente",
-  };
-
-  const steps = ["datetime", "doctor", "patient"];
-  const currentStepIndex = steps.indexOf(currentStep);
-  const progress = ((currentStepIndex + 1) / steps.length) * 100;
+  const {
+    progress,
+    stepTitles,
+    handleScroll,
+    showNextButton,
+  } = useAppointmentFormFlow({
+    currentStep,
+    showSummaryCard: !!showSummaryCard,
+    selectedDateValue,
+    selectedTimeValue,
+  });
 
   return (
     <SlideUpScreen>

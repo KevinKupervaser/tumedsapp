@@ -3,6 +3,7 @@ import { useTheme } from "@features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { usePeriodFormatting } from "../hooks/usePeriodFormatting";
 
 interface AppointmentSummaryCardProps {
   date: string;
@@ -16,12 +17,7 @@ export function AppointmentSummaryCard({
   period,
 }: AppointmentSummaryCardProps) {
   const { theme } = useTheme();
-
-  const periodText = period === "morning" ? "mañana" : "tarde";
-  const periodIcon = period === "morning" ? "wb-sunny" : "nights-stay";
-
-  const gradientColors: [string, string] =
-    period === "morning" ? ["#FFA726", "#FF6F00"] : ["#5C6BC0", "#3949AB"];
+  const { periodTextCapitalized, periodIcon, gradientColors } = usePeriodFormatting(period);
 
   return (
     <ThemedView style={styles.container}>
@@ -93,7 +89,7 @@ export function AppointmentSummaryCard({
                 Turno
               </ThemedText>
               <ThemedText style={styles.detailValue}>
-                {periodText.charAt(0).toUpperCase() + periodText.slice(1)}
+                {periodTextCapitalized}
               </ThemedText>
             </View>
           </View>

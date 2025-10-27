@@ -22,14 +22,19 @@ src/features/appointments/
 │   ├── useAppointments.ts               # Hook principal para CRUD
 │   ├── useAppointmentActions.ts         # Acciones (editar, eliminar, crear)
 │   ├── useAppointmentCard.ts            # Lógica de formateo para tarjetas
+│   ├── useAppointmentFormFlow.ts        # Lógica de flujo del formulario
 │   ├── useAppointmentMultiStepForm.ts   # Formulario multi-paso
 │   ├── useAppointmentsFilter.ts         # Filtrado y auto-completado
+│   ├── usePeriodFormatting.ts           # Formateo de períodos (mañana/tarde)
 │   └── index.ts
 ├── services/
 │   ├── appointmentsService.ts           # API client
 │   └── index.ts
 ├── types/
 │   ├── appointment.types.ts             # Tipos TypeScript
+│   └── index.ts
+├── utils/
+│   ├── doctorAvatarMap.ts               # Mapeo de avatares de doctores
 │   └── index.ts
 └── README.md                            # Este archivo
 ```
@@ -707,6 +712,180 @@ El hook automáticamente marca citas como "completadas" si:
 // Ejemplo: Cita de ayer a las 10:00 AM
 // Estado actual: "scheduled"
 // Estado procesado: "completed" (automático)
+```
+
+### usePeriodFormatting
+
+Hook que proporciona formateo y configuración visual para períodos de tiempo (mañana/tarde).
+
+**Parámetros:**
+
+```typescript
+period: "morning" | "afternoon"  // El período de tiempo
+```
+
+**Retorno:**
+
+```typescript
+{
+  periodText: string;              // "mañana" | "tarde"
+  periodTextCapitalized: string;   // "Mañana" | "Tarde"
+  periodIcon: "wb-sunny" | "nights-stay";  // Ícono Material Icons
+  gradientColors: [string, string];        // Colores del gradiente
+}
+```
+
+**Ejemplo de uso:**
+
+```typescript
+import { usePeriodFormatting } from '@features/appointments/hooks';
+
+function ResumenCita({ period }: { period: "morning" | "afternoon" }) {
+  const { periodTextCapitalized, periodIcon, gradientColors } = usePeriodFormatting(period);
+
+  return (
+    <LinearGradient colors={gradientColors}>
+      <MaterialIcons name={periodIcon} size={24} />
+      <Text>{periodTextCapitalized}</Text>
+    </LinearGradient>
+  );
+}
+```
+
+**Configuración de colores:**
+
+- **Mañana**: Gradiente naranja `["#FFA726", "#FF6F00"]`, ícono sol ☀️
+- **Tarde**: Gradiente azul/morado `["#5C6BC0", "#3949AB"]`, ícono luna 🌙
+
+### useAppointmentFormFlow
+
+Hook que gestiona la lógica de flujo del formulario multi-paso de citas.
+
+**Parámetros:**
+
+```typescript
+{
+  currentStep: "datetime" | "doctor" | "patient";  // Paso actual
+  showSummaryCard: boolean;                         // Si mostrar resumen
+  selectedDateValue?: string;                       // Fecha seleccionada
+  selectedTimeValue?: string;                       // Hora seleccionada
+}
+```
+
+**Retorno:**
+
+```typescript
+{
+  steps: FormStep[];                    // ["datetime", "doctor", "patient"]
+  currentStepIndex: number;             // Índice del paso actual (0-2)
+  progress: number;                     // Progreso en porcentaje (0-100)
+  stepTitles: Record<FormStep, string>; // Títulos de cada paso
+  hasScrolledToSummary: boolean;        // Si el usuario scrolleó al resumen
+  handleScroll: (event: any) => void;   // Handler de scroll
+  showNextButton: boolean;              // Si mostrar botón siguiente
+}
+```
+
+**Ejemplo de uso:**
+
+```typescript
+import { useAppointmentFormFlow } from '@features/appointments/hooks';
+
+function FormularioCita() {
+  const { currentStep } = useAppointmentMultiStepForm();
+  const selectedDate = useWatch({ control, name: "date" });
+  const selectedTime = useWatch({ control, name: "time" });
+
+  const {
+    progress,
+    stepTitles,
+    handleScroll,
+    showNextButton,
+  } = useAppointmentFormFlow({
+    currentStep,
+    showSummaryCard: !!(selectedDate && selectedTime),
+  });
+
+  return (
+    <View>
+      {/* Barra de progreso */}
+      <ProgressBar progress={progress} />
+      <Text>{stepTitles[currentStep]}</Text>
+
+      {/* Formulario con scroll tracking */}
+      <ScrollView onScroll={handleScroll} scrollEventThrottle={16}>
+        {/* Contenido del formulario */}
+      </ScrollView>
+
+      {/* Botón siguiente (solo visible cuando corresponde) */}
+      {showNextButton && (
+        <Button title="Siguiente" onPress={goToNextStep} />
+      )}
+    </View>
+  );
+}
+```
+
+**Lógica de visibilidad del botón:**
+
+- **Paso 1 (datetime)**: Botón visible solo después de scroll > 60% (usuario vio el resumen)
+- **Otros pasos**: Botón siempre visible
+
+**Optimizaciones:**
+
+- Usa `useMemo` para evitar recálculos innecesarios
+- Usa `useCallback` para estabilizar handlers
+- Resetea estado de scroll automáticamente al cambiar de paso
+
+## Utilidades
+
+### getDoctorAvatar
+
+Función que mapea nombres de doctores a sus imágenes de avatar.
+
+**Parámetros:**
+
+```typescript
+doctorName: string  // Nombre completo del doctor
+```
+
+**Retorno:**
+
+```typescript
+ReturnType<typeof require> | null  // Source de imagen o null
+```
+
+**Ejemplo de uso:**
+
+```typescript
+import { getDoctorAvatar } from '@features/appointments/utils';
+
+function DoctorAvatar({ doctorName }: { doctorName: string }) {
+  const avatarSource = getDoctorAvatar(doctorName);
+
+  return avatarSource ? (
+    <Image source={avatarSource} style={styles.avatar} />
+  ) : (
+    <MaterialIcons name="person" size={40} />
+  );
+}
+```
+
+**Mapeo actual:**
+
+- **"Dr. Álvaro Medina"** → `require("@/assets/doctors/medina.jpg")`
+- **"Dra. María Hookerman"** → `require("@/assets/doctors/hookerman.jpg")`
+
+**Agregar nuevos doctores:**
+
+Edita `src/features/appointments/utils/doctorAvatarMap.ts`:
+
+```typescript
+const DOCTOR_AVATAR_MAP: Record<string, any> = {
+  medina: require("@/assets/doctors/medina.jpg"),
+  hookerman: require("@/assets/doctors/hookerman.jpg"),
+  perez: require("@/assets/doctors/perez.jpg"),  // Nuevo doctor
+};
 ```
 
 ## Servicios API

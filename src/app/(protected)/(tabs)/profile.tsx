@@ -1,5 +1,5 @@
 import { useAppSelector } from "@core";
-import { useImageOptions, useImagePicker, useProfilePicture } from "@features/profile";
+import { useProfilePictureManagement } from "@features/profile";
 import { useTheme } from "@features/settings";
 import { LogoutButton, ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -10,41 +10,7 @@ export default function ProfileScreen() {
   const user = useAppSelector((state) => state.auth.user);
   const isGuest = useAppSelector((state) => state.auth.isGuest);
 
-  const { pickImage, takePhoto, isLoading: isPickerLoading } = useImagePicker();
-  const { profilePicture, updateProfilePicture, isUpdating } =
-    useProfilePicture();
-  const { showImageOptions } = useImageOptions();
-
-  const isLoading = isPickerLoading || isUpdating;
-
-  const handleTakePhoto = async () => {
-    const uri = await takePhoto();
-    if (uri) {
-      updateProfilePicture(uri);
-    }
-  };
-
-  const handlePickImage = async () => {
-    const uri = await pickImage();
-    if (uri) {
-      updateProfilePicture(uri);
-    }
-  };
-
-  const handleDeletePhoto = () => {
-    updateProfilePicture(null);
-  };
-
-  const handleShowOptions = () => {
-    showImageOptions(
-      {
-        onTakePhoto: handleTakePhoto,
-        onPickImage: handlePickImage,
-        onDeletePhoto: handleDeletePhoto,
-      },
-      !!profilePicture
-    );
-  };
+  const { profilePicture, isLoading, handleShowOptions } = useProfilePictureManagement();
 
   return (
     <ThemedView style={styles.container}>

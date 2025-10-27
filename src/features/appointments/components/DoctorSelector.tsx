@@ -1,7 +1,8 @@
 import { ThemedText, ThemedView } from "@shared";
 import { useTheme } from "@features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
+import { getDoctorAvatar } from "../utils/doctorAvatarMap";
 
 interface Doctor {
   id: string;
@@ -26,6 +27,7 @@ export function DoctorSelector({
       <ThemedText style={styles.title}>Profesional Disponible</ThemedText>
       {doctors.map((doctor) => {
         const isSelected = selectedDoctor === doctor.name;
+        const avatarSource = getDoctorAvatar(doctor.name);
 
         return (
           <TouchableOpacity
@@ -40,11 +42,23 @@ export function DoctorSelector({
             ]}
             onPress={() => onSelect(doctor.name)}
           >
-            <MaterialIcons
-              name="local-hospital"
-              size={32}
-              color={isSelected ? "#FFF" : theme.primary}
-            />
+            {/* Doctor Avatar */}
+            <View style={styles.avatarContainer}>
+              {avatarSource ? (
+                <Image
+                  source={avatarSource}
+                  style={styles.avatar}
+                  resizeMode="cover"
+                />
+              ) : (
+                <MaterialIcons
+                  name="local-hospital"
+                  size={32}
+                  color={isSelected ? "#FFF" : theme.primary}
+                />
+              )}
+            </View>
+
             <View style={styles.doctorInfo}>
               {/* Fixed: Use inline style for selected text color */}
               <ThemedText
@@ -91,6 +105,18 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 2,
     gap: 16,
+  },
+  avatarContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatar: {
+    width: 60,
+    height: 60,
   },
   doctorInfo: {
     flex: 1,
