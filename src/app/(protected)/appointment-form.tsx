@@ -40,6 +40,7 @@ export default function AppointmentFormScreen() {
     onSubmit,
     isLoading,
     goBack,
+    isDoctorPreSelected,
   } = useAppointmentMultiStepForm();
 
   const selectedDateValue = useWatch({ control, name: "date" });
@@ -56,6 +57,7 @@ export default function AppointmentFormScreen() {
     showSummaryCard: !!showSummaryCard,
     selectedDateValue,
     selectedTimeValue,
+    isDoctorPreSelected,
   });
 
   return (
@@ -101,6 +103,16 @@ export default function AppointmentFormScreen() {
           {/* Step 1: Date & Time */}
           {currentStep === "datetime" && (
             <>
+              {/* Show pre-selected doctor info */}
+              {isDoctorPreSelected && selectedDoctor && (
+                <ThemedView style={[styles.doctorInfoBanner, { backgroundColor: theme.card, borderColor: theme.border }]}>
+                  <MaterialIcons name="local-hospital" size={20} color={theme.primary} />
+                  <ThemedText style={styles.doctorInfoText}>
+                    Turno con: <ThemedText style={{ fontWeight: '600' }}>{selectedDoctor}</ThemedText>
+                  </ThemedText>
+                </ThemedView>
+              )}
+
               <DatePickerField
                 name="date"
                 control={control}
@@ -142,8 +154,8 @@ export default function AppointmentFormScreen() {
             </>
           )}
 
-          {/* Step 2: Doctor Selection */}
-          {currentStep === "doctor" && (
+          {/* Step 2: Doctor Selection (only show if NOT pre-selected) */}
+          {currentStep === "doctor" && !isDoctorPreSelected && (
             <DoctorSelector
               doctors={availableDoctors}
               selectedDoctor={selectedDoctor}
@@ -369,5 +381,18 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.5,
+  },
+  doctorInfoBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    marginBottom: 20,
+    gap: 8,
+  },
+  doctorInfoText: {
+    fontSize: 14,
+    flex: 1,
   },
 });

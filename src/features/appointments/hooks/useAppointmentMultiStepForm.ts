@@ -20,6 +20,7 @@ interface UseAppointmentMultiStepFormResult {
   isLastStep: boolean;
   goToNextStep: () => void;
   goToPreviousStep: () => void;
+  isDoctorPreSelected: boolean;
 
   // Date & Time
   showDatePicker: boolean;
@@ -169,56 +170,66 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
   // Track if we're initializing from edit mode to prevent clearing time
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Populate form when in edit mode
+  // Populate form when in edit mode OR when coming from service card
   useEffect(() => {
-    if (isEditMode && params && !isInitialized) {
-      // Set form values
-      if (params.patient) setValue("patient", params.patient as string);
-      if (params.doctor) {
-        setValue("doctor", params.doctor as string);
-        setSelectedDoctor(params.doctor as string);
+    if (!isInitialized) {
+      // Handle edit mode
+      if (isEditMode && params) {
+        // Set form values
+        if (params.patient) setValue("patient", params.patient as string);
+        if (params.doctor) {
+          setValue("doctor", params.doctor as string);
+          setSelectedDoctor(params.doctor as string);
+        }
+        if (params.date) setValue("date", params.date as string);
+        if (params.phone) setValue("phone", params.phone as string);
+        if (params.email) setValue("email", params.email as string);
+        if (params.observations) setValue("observations", params.observations as string);
+        if (params.status) setValue("status", params.status as any);
+
+        // Parse and set date
+        if (params.date) {
+          const dateStr = params.date as string;
+          let parsedDate: Date;
+
+          if (dateStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+            // DD/MM/YYYY format
+            const [day, month, year] = dateStr.split('/').map(Number);
+            parsedDate = new Date(year, month - 1, day);
+          } else if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            // YYYY-MM-DD format
+            parsedDate = new Date(dateStr);
+          } else {
+            parsedDate = new Date(dateStr);
+          }
+
+          if (!isNaN(parsedDate.getTime())) {
+            setSelectedDate(parsedDate);
+          }
+        }
+
+        // Set time and period together to avoid clearing
+        if (params.time) {
+          const time = params.time as string;
+          const hour = parseInt(time.split(':')[0]);
+
+          // Set period first
+          if (hour >= 9 && hour < 17) {
+            setSelectedTimeSlotPeriod("morning");
+          } else if (hour >= 17 && hour <= 21) {
+            setSelectedTimeSlotPeriod("afternoon");
+          }
+
+          // Then set time
+          setValue("time", time);
+        }
       }
-      if (params.date) setValue("date", params.date as string);
-      if (params.phone) setValue("phone", params.phone as string);
-      if (params.email) setValue("email", params.email as string);
-      if (params.observations) setValue("observations", params.observations as string);
-      if (params.status) setValue("status", params.status as any);
 
-      // Parse and set date
-      if (params.date) {
-        const dateStr = params.date as string;
-        let parsedDate: Date;
-
-        if (dateStr.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-          // DD/MM/YYYY format
-          const [day, month, year] = dateStr.split('/').map(Number);
-          parsedDate = new Date(year, month - 1, day);
-        } else if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
-          // YYYY-MM-DD format
-          parsedDate = new Date(dateStr);
-        } else {
-          parsedDate = new Date(dateStr);
-        }
-
-        if (!isNaN(parsedDate.getTime())) {
-          setSelectedDate(parsedDate);
-        }
-      }
-
-      // Set time and period together to avoid clearing
-      if (params.time) {
-        const time = params.time as string;
-        const hour = parseInt(time.split(':')[0]);
-
-        // Set period first
-        if (hour >= 9 && hour < 17) {
-          setSelectedTimeSlotPeriod("morning");
-        } else if (hour >= 17 && hour <= 21) {
-          setSelectedTimeSlotPeriod("afternoon");
-        }
-
-        // Then set time
-        setValue("time", time);
+      // Handle pre-filled doctor from service card (new appointments)
+      if (!isEditMode && params.doctorName) {
+        const doctorName = params.doctorName as string;
+        setSelectedDoctor(doctorName);
+        setValue("doctor", doctorName);
       }
 
       setIsInitialized(true);
@@ -282,7 +293,14 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
     }
   };
 
-  const steps: FormStep[] = ["datetime", "doctor", "patient"];
+  // Check if doctor is pre-selected (coming from service card)
+  const isDoctorPreSelected = !isEditMode && !!params.doctorName;
+
+  // Dynamic steps: skip doctor selection if pre-selected
+  const steps: FormStep[] = isDoctorPreSelected
+    ? ["datetime", "patient"]
+    : ["datetime", "doctor", "patient"];
+
   const currentStepIndex = steps.indexOf(currentStep);
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === steps.length - 1;
@@ -297,7 +315,12 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
         Alert.alert("Error", "Por favor selecciona fecha y horario");
         return;
       }
-      setCurrentStep("doctor");
+      // If doctor is pre-selected, skip to patient step
+      if (isDoctorPreSelected) {
+        setCurrentStep("patient");
+      } else {
+        setCurrentStep("doctor");
+      }
     } else if (currentStep === "doctor") {
       if (!selectedDoctor) {
         Alert.alert("Error", "Por favor selecciona un profesional");
@@ -312,7 +335,12 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
     if (currentStep === "doctor") {
       setCurrentStep("datetime");
     } else if (currentStep === "patient") {
-      setCurrentStep("doctor");
+      // If doctor is pre-selected, go back to datetime
+      if (isDoctorPreSelected) {
+        setCurrentStep("datetime");
+      } else {
+        setCurrentStep("doctor");
+      }
     }
   };
 
@@ -377,6 +405,7 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
     isLastStep,
     goToNextStep,
     goToPreviousStep,
+    isDoctorPreSelected,
     showDatePicker,
     showTimePicker,
     selectedDate,

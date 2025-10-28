@@ -7,6 +7,7 @@ interface UseAppointmentFormFlowProps {
   showSummaryCard: boolean;
   selectedDateValue?: string;
   selectedTimeValue?: string;
+  isDoctorPreSelected?: boolean; // New prop to handle dynamic steps
 }
 
 interface UseAppointmentFormFlowResult {
@@ -50,13 +51,16 @@ interface UseAppointmentFormFlowResult {
 export function useAppointmentFormFlow({
   currentStep,
   showSummaryCard,
+  isDoctorPreSelected = false,
 }: UseAppointmentFormFlowProps): UseAppointmentFormFlowResult {
   const [hasScrolledToSummary, setHasScrolledToSummary] = useState(false);
 
-  // Define step order and titles
+  // Define step order based on whether doctor is pre-selected
   const steps: FormStep[] = useMemo(
-    () => ["datetime", "doctor", "patient"],
-    []
+    () => isDoctorPreSelected
+      ? ["datetime", "patient"]
+      : ["datetime", "doctor", "patient"],
+    [isDoctorPreSelected]
   );
 
   const stepTitles: Record<FormStep, string> = useMemo(
