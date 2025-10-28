@@ -1,7 +1,8 @@
 import { ThemedText, ThemedView } from "@shared";
 import { useTheme } from "@features/settings";
 import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image } from "expo-image";
 import { getDoctorAvatar } from "../utils/doctorAvatarMap";
 
 interface Doctor {
@@ -48,7 +49,7 @@ export function DoctorSelector({
                 <Image
                   source={avatarSource}
                   style={styles.avatar}
-                  resizeMode="cover"
+                  contentFit="cover"
                 />
               ) : (
                 <MaterialIcons

@@ -1,8 +1,9 @@
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { CollapsibleCard, ThemedText } from "@shared";
 import { useTheme } from "@features/settings";
 import { Doctor } from "../types";
+import { Image } from "expo-image";
 
 interface DoctorCardProps {
   doctor: Doctor;
@@ -14,23 +15,15 @@ export function DoctorCard({ doctor }: DoctorCardProps) {
   const header = (
     <View style={styles.headerContent}>
       <View style={styles.avatarContainer}>
-        <Image
-          source={doctor.photo}
-          style={styles.avatar}
-          resizeMode="cover"
-        />
+        <Image source={doctor.photo} style={styles.avatar} contentFit="cover" />
       </View>
 
       <View style={styles.headerText}>
         <ThemedText type="subtitle" style={styles.doctorName}>
           {doctor.name}
         </ThemedText>
-        <ThemedText style={styles.specialty}>
-          {doctor.specialty}
-        </ThemedText>
-        <ThemedText style={styles.experience}>
-          {doctor.experience}
-        </ThemedText>
+        <ThemedText style={styles.specialty}>{doctor.specialty}</ThemedText>
+        <ThemedText style={styles.experience}>{doctor.experience}</ThemedText>
       </View>
     </View>
   );
@@ -50,9 +43,7 @@ export function DoctorCard({ doctor }: DoctorCardProps) {
             Sobre el profesional
           </ThemedText>
         </View>
-        <ThemedText style={styles.sectionContent}>
-          {doctor.bio}
-        </ThemedText>
+        <ThemedText style={styles.sectionContent}>{doctor.bio}</ThemedText>
       </View>
 
       {/* Education */}
@@ -118,9 +109,7 @@ export function DoctorCard({ doctor }: DoctorCardProps) {
             Horarios de atención
           </ThemedText>
         </View>
-        <ThemedText style={styles.sectionContent}>
-          {doctor.schedule}
-        </ThemedText>
+        <ThemedText style={styles.sectionContent}>{doctor.schedule}</ThemedText>
       </View>
     </CollapsibleCard>
   );
