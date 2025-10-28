@@ -293,10 +293,10 @@ export function useAppointmentMultiStepForm(): UseAppointmentMultiStepFormResult
     }
   };
 
-  // Check if doctor is pre-selected (coming from service card)
-  const isDoctorPreSelected = !isEditMode && !!params.doctorName;
+  // Check if doctor is pre-selected (coming from service card OR editing existing appointment)
+  const isDoctorPreSelected = (isEditMode && !!params.doctor) || (!isEditMode && !!params.doctorName);
 
-  // Dynamic steps: skip doctor selection if pre-selected
+  // Dynamic steps: skip doctor selection if doctor is already set
   const steps: FormStep[] = isDoctorPreSelected
     ? ["datetime", "patient"]
     : ["datetime", "doctor", "patient"];

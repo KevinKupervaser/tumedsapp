@@ -4,7 +4,6 @@ import { LogoutButton, ThemedText, ThemedView } from "@shared";
 import { FlatList, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
-import Animated, { ZoomIn } from "react-native-reanimated";
 
 export default function HomeScreen() {
   const user = useAppSelector((state) => state.auth.user);
@@ -22,16 +21,8 @@ export default function HomeScreen() {
   }, [router]);
 
   const renderServiceItem = useCallback(
-    ({ item, index }: { item: Service; index: number }) => (
-      <Animated.View
-        entering={ZoomIn.delay(index * 150)
-          .duration(500)
-          .springify()
-          .damping(14)
-          .stiffness(100)}
-      >
-        <ServiceCard service={item} onBook={handleBookService} />
-      </Animated.View>
+    ({ item }: { item: Service }) => (
+      <ServiceCard service={item} onBook={handleBookService} />
     ),
     [handleBookService]
   );

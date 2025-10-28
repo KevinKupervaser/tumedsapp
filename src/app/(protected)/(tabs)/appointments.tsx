@@ -9,9 +9,10 @@ import {
 import { useTheme } from "@features/settings";
 import { ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
-import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 import { useCallback } from "react";
 import type { Appointment } from "@shared/types/common.types";
+import { FlashList } from "@shopify/flash-list";
 
 export default function AppointmentsScreen() {
   const user = useAppSelector((state) => state.auth.user);
@@ -29,9 +30,7 @@ export default function AppointmentsScreen() {
 
   const { handleEdit, handleDelete } = useAppointmentActions();
 
-  // Memoized callbacks for FlatList performance
-  const keyExtractor = useCallback((item: Appointment) => item.id, []);
-
+  // Memoized callbacks for FlashList performance
   const renderAppointmentItem = useCallback(
     ({ item }: { item: Appointment }) => (
       <AppointmentCard
@@ -78,15 +77,16 @@ export default function AppointmentsScreen() {
         getFilterIcon={getFilterIcon}
       />
 
+      {/* flashlist from shopify to render list */}
+
       {/* Appointments List */}
       {isLoading ? (
         <ThemedView style={styles.loading}>
           <ActivityIndicator size="large" color={theme.primary} />
         </ThemedView>
       ) : (
-        <FlatList
+        <FlashList
           data={filteredAppointments}
-          keyExtractor={keyExtractor}
           renderItem={renderAppointmentItem}
           ListEmptyComponent={renderEmptyComponent}
           contentContainerStyle={styles.list}
