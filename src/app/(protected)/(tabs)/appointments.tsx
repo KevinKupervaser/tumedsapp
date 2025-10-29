@@ -1,4 +1,3 @@
-import { useAppSelector } from "@core";
 import {
   AppointmentCard,
   FilterChips,
@@ -15,7 +14,6 @@ import type { Appointment } from "@shared/types/common.types";
 import { FlashList } from "@shopify/flash-list";
 
 export default function AppointmentsScreen() {
-  const user = useAppSelector((state) => state.auth.user);
   const { appointments, isLoading, deleteAppointment } = useAppointments();
   const { theme } = useTheme();
 
@@ -58,16 +56,6 @@ export default function AppointmentsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      {/* Header */}
-      <ThemedView style={styles.header}>
-        <ThemedView style={styles.headerContent}>
-          <ThemedView>
-            <ThemedText type="title">Mis Turnos</ThemedText>
-            <ThemedText style={styles.email}>{user?.email}</ThemedText>
-          </ThemedView>
-        </ThemedView>
-      </ThemedView>
-
       {/* Filter Chips */}
       <FilterChips
         filters={filters}
@@ -100,20 +88,6 @@ export default function AppointmentsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 60,
-  },
-  headerContent: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  email: {
-    fontSize: 14,
-    opacity: 0.7,
-    marginTop: 4,
   },
   loading: {
     flex: 1,

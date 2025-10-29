@@ -125,11 +125,6 @@ export default function OfflineTestScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      {/* Header */}
-      <ThemedView style={styles.header}>
-        <ThemedText type="title">Prueba Offline/Sync</ThemedText>
-      </ThemedView>
-
       {/* Sync Indicator Banner */}
       <SyncIndicator variant="banner" />
 
@@ -362,13 +357,13 @@ export default function OfflineTestScreen() {
             📱 Instrucciones de Prueba
           </ThemedText>
           <ThemedText style={styles.instruction}>
-            1. Presiona "Crear Turno de Prueba" para guardar un turno offline
+            1. Presiona &quot;Crear Turno de Prueba&quot; para guardar un turno offline
           </ThemedText>
           <ThemedText style={styles.instruction}>
             2. Activa el modo avión en tu dispositivo
           </ThemedText>
           <ThemedText style={styles.instruction}>
-            3. Observa el indicador cambiar a "Sin conexión"
+            3. Observa el indicador cambiar a &quot;Sin conexión&quot;
           </ThemedText>
           <ThemedText style={styles.instruction}>
             4. Crea más turnos mientras estás offline
@@ -380,7 +375,7 @@ export default function OfflineTestScreen() {
             6. La sincronización automática debería iniciarse
           </ThemedText>
           <ThemedText style={styles.instruction}>
-            7. O presiona "Sincronizar Ahora" manualmente
+            7. O presiona &quot;Sincronizar Ahora&quot; manualmente
           </ThemedText>
         </ThemedView>
       </ScrollView>
@@ -428,10 +423,6 @@ function OfflineAppointmentItem({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    padding: 20,
-    paddingTop: 60,
   },
   content: {
     flex: 1,

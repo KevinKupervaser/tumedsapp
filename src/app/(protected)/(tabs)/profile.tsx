@@ -1,7 +1,7 @@
 import { useAppSelector } from "@core";
 import { useProfilePictureManagement } from "@features/profile";
 import { useTheme } from "@features/settings";
-import { LogoutButton, ThemedText, ThemedView } from "@shared";
+import { ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 
@@ -14,11 +14,6 @@ export default function ProfileScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={styles.header}>
-        <ThemedText type="title">Perfil</ThemedText>
-        <LogoutButton />
-      </ThemedView>
-
       <ThemedView style={styles.content}>
         <View style={styles.avatarContainer}>
           <TouchableOpacity
@@ -111,16 +106,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 20,
-    paddingTop: 60,
-  },
   content: {
     flex: 1,
     padding: 20,
+    paddingTop: 20,
   },
   avatarContainer: {
     alignItems: "center",

@@ -1,5 +1,5 @@
 import { useTheme } from "@features/settings";
-import { LogoutButton, ThemedText, ThemedView } from "@shared";
+import { ThemedText, ThemedView } from "@shared";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
@@ -8,11 +8,6 @@ export default function SettingsScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedView style={styles.header}>
-        <ThemedText type="title">Configuración</ThemedText>
-        <LogoutButton />
-      </ThemedView>
-
       <ThemedView style={[styles.section, { backgroundColor: theme.card }]}>
         <ThemedText style={styles.sectionTitle}>
           Tema de la Aplicación
@@ -92,15 +87,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 20,
-    paddingTop: 60,
-  },
   section: {
     margin: 20,
+    marginTop: 20,
     borderRadius: 12,
     padding: 16,
   },
